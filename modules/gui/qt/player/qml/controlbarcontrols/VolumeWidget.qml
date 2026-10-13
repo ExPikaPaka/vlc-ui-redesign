@@ -35,6 +35,10 @@ T.Pane {
         return (volControl.position > _fullvolpos) ? theme.fg.negative : theme.fg.primary
     }
 
+    //the position within the control where the volume reaches 100%
+    readonly property real _fullvolposNormalised: (_maxvolpos > 0) ? (_fullvolpos / _maxvolpos)
+                                                                   : 1.0
+
     readonly property var _player: paintOnly ? ({ muted: false, volume: .5 }) : Player
     readonly property int _maxvol: MainCtx.maxVolume
     readonly property real _fullvolpos: 100 / _maxvol
@@ -126,6 +130,83 @@ T.Pane {
             property bool filterEvents: false
 
             color: root.sliderColor
+
+            // The design draws the volume as a wedge widening to the right,
+            // filled from the left and shading from green through olive to red
+            // once the volume is past full.
+            background: Item {
+                implicitWidth: VLCStyle.dp(100, VLCStyle.scale)
+                implicitHeight: VLCStyle.dp(18, VLCStyle.scale)
+
+                Canvas {
+                    id: wedge
+
+                    anchors.fill: parent
+
+                    readonly property real position: volControl.position
+                    readonly property color emptyColor: volControl.bgColor
+                    readonly property color lowColor: volControl.colorContext.fg.positive
+                    readonly property color highColor: volControl.colorContext.fg.neutral
+                    readonly property color overColor: volControl.colorContext.fg.negative
+
+                    onPositionChanged: requestPaint()
+                    onEmptyColorChanged: requestPaint()
+                    onLowColorChanged: requestPaint()
+
+                    Component.onCompleted: requestPaint()
+
+                    //addColorStop only takes a CSS colour string, handing it a
+                    //QML colour leaves the gradient unpainted
+                    function _css(c) {
+                        return "rgba(" + Math.round(c.r * 255)
+                             + "," + Math.round(c.g * 255)
+                             + "," + Math.round(c.b * 255)
+                             + "," + c.a + ")"
+                    }
+
+                    onPaint: {
+                        const ctx = getContext("2d")
+                        ctx.reset()
+
+                        const w = width
+                        const h = height
+                        //the thin end still has to be visible
+                        const thin = Math.max(VLCStyle.dp(2, VLCStyle.scale), h * 0.2)
+
+                        function wedgePath() {
+                            ctx.beginPath()
+                            ctx.moveTo(0, (h - thin) / 2)
+                            ctx.lineTo(w, 0)
+                            ctx.lineTo(w, h)
+                            ctx.lineTo(0, (h + thin) / 2)
+                            ctx.closePath()
+                        }
+
+                        wedgePath()
+                        ctx.fillStyle = wedge._css(wedge.emptyColor)
+                        ctx.fill()
+
+                        if (wedge.position <= 0)
+                            return
+
+                        ctx.save()
+                        ctx.beginPath()
+                        ctx.rect(0, 0, w * wedge.position, h)
+                        ctx.clip()
+
+                        const grad = ctx.createLinearGradient(0, 0, w, 0)
+                        grad.addColorStop(0, wedge._css(wedge.lowColor))
+                        grad.addColorStop(Math.min(0.999, root._fullvolposNormalised),
+                                          wedge._css(wedge.highColor))
+                        grad.addColorStop(1, wedge._css(wedge.overColor))
+
+                        wedgePath()
+                        ctx.fillStyle = grad
+                        ctx.fill()
+                        ctx.restore()
+                    }
+                }
+            }
 
             from: 0
             to: root._maxvolpos

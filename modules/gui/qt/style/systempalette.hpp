@@ -156,6 +156,12 @@ public:
     COLOR_DEFINITION(lightDividerBright, "#9B9B9B");
     COLOR_DEFINITION(lightDividerDim, "#ACACAC");
 
+    //the volume meter of the design: measured off the wedge at the quiet end,
+    //the loud end extrapolated along the same gradient, red kept for past full
+    COLOR_DEFINITION(meterLow, "#7AA513");
+    COLOR_DEFINITION(meterHigh, "#A59413");
+    COLOR_DEFINITION(meterOver, "#C42B1C");
+
     COLOR_DEFINITION(lightAccentMain, "#E8851A");
     COLOR_DEFINITION(lightAccentDim, "#C2711A");
 
