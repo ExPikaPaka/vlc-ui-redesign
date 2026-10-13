@@ -1177,6 +1177,7 @@ libqml_module_player_a_QML = \
 	player/qml/PlayerToolbarVisibilityFSM.qml \
 	player/qml/MinimalView.qml \
 	player/qml/ResumeDialog.qml \
+	player/qml/SeekRow.qml \
 	player/qml/SliderBar.qml \
 	player/qml/TopBar.qml \
 	player/qml/TracksMenu.qml \

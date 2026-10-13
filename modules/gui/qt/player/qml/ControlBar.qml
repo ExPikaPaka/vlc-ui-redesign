@@ -34,7 +34,10 @@ T.Pane {
     enum TimeTextPosition {
         Hide,
         AboveSlider,
-        LeftRightSlider
+        LeftRightSlider,
+        // the seek bar and the two times sit inside the row of controls,
+        // between the groups, which is how the design draws the bar
+        InLayout
     }
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -70,8 +73,13 @@ T.Pane {
     AccessibleCompat.id: "playerControlBar"
 
     function showChapterMarks() {
-        if (contentItem.trackPositionSlider)
-            contentItem.trackPositionSlider.showChapterMarks()
+        //in the single row the seek bar belongs to the control layout
+        const slider = (textPosition === ControlBar.TimeTextPosition.InLayout)
+                       ? contentItem.playerControlLayout?.seekSlider
+                       : contentItem.trackPositionSlider
+
+        if (slider)
+            slider.showChapterMarks()
     }
 
     function applyMenu(menu) {
@@ -241,7 +249,10 @@ T.Pane {
                 id: bookmarksLoader
 
                 parent: root
+                //the bookmarks sit under the seek bar, which the control
+                //layout owns in that mode
                 active: MainCtx.mediaLibraryAvailable
+                        && (textPosition !== ControlBar.TimeTextPosition.InLayout)
                 source: "qrc:///qt/qml/VLC/MediaLibrary/Bookmarks.qml"
 
                 x: root.leftPadding + trackPositionSlider.x + row2.Layout.leftMargin
@@ -278,6 +289,7 @@ T.Pane {
                     return [mediaTime, mediaRemainingTime]
                 case ControlBar.TimeTextPosition.Hide:
                 case ControlBar.TimeTextPosition.LeftRightSlider:
+                case ControlBar.TimeTextPosition.InLayout:
                 default:
                     return []
                 }
@@ -294,6 +306,9 @@ T.Pane {
                     return [trackPositionSlider]
                 case ControlBar.TimeTextPosition.LeftRightSlider:
                     return [mediaTime, trackPositionSlider, mediaRemainingTime]
+                case ControlBar.TimeTextPosition.InLayout:
+                    //the control layout draws the seek bar itself
+                    return []
                 default:
                     return []
                 }
@@ -321,12 +336,16 @@ T.Pane {
 
             identifier: root.identifier
 
+            showSeekBar: (root.textPosition === ControlBar.TimeTextPosition.InLayout)
+            sliderHeight: root.sliderHeight
+
             implicitHeight: MainCtx.pinVideoControls ? VLCStyle.controlLayoutHeightPinned
                                                      : VLCStyle.controlLayoutHeight
 
             visible: !model?.empty ?? false
 
-            Navigation.upItem: trackPositionSlider.enabled ? trackPositionSlider : root.Navigation.upItem
+            Navigation.upItem: (row2.visible && trackPositionSlider.enabled) ? trackPositionSlider
+                                                                              : root.Navigation.upItem
 
             onRequestLockUnlockAutoHide: (lock) => root.requestLockUnlockAutoHide(lock)
 
