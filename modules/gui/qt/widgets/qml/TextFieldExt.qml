@@ -43,11 +43,14 @@ TextField {
 
     verticalAlignment: Text.AlignVCenter
 
-    property real radius
+    property real radius: VLCStyle.input_radius
+
+    leftPadding: VLCStyle.margin_small
+    rightPadding: VLCStyle.margin_small
 
     background: Rectangle {
-        implicitWidth: 200
-        implicitHeight: 40
+        implicitWidth: VLCStyle.widthSearchInput
+        implicitHeight: VLCStyle.input_height
         border.width: control.enabled ? VLCStyle.dp(2, VLCStyle.scale) : 0
         color: theme.bg.primary
         border.color: theme.border

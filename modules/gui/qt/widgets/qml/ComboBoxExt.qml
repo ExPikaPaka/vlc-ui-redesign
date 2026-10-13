@@ -34,7 +34,7 @@ T.ComboBox {
                              implicitIndicatorHeight + topPadding + bottomPadding)
 
     padding: VLCStyle.margin_xxsmall
-    font.pixelSize: VLCStyle.fontSize_large
+    font.pixelSize: VLCStyle.fontSize_normal
 
     readonly property ColorContext colorContext: ColorContext {
         id: theme
@@ -89,10 +89,11 @@ T.ComboBox {
 
     background: Widgets.AnimatedBackground {
         enabled: theme.initialized
+        implicitHeight: VLCStyle.input_height
         color: control.bgColor
         border.color: theme.border
         border.width: VLCStyle.dp(2, VLCStyle.scale)
-        radius: VLCStyle.dp(2, VLCStyle.scale)
+        radius: VLCStyle.input_radius
     }
 
     popup: Popup {
