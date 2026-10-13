@@ -182,11 +182,18 @@ QtObject {
     readonly property int contextButton_width: icon_normal
     readonly property int contextButton_margin: margin_xxsmall
 
-    readonly property int checkButton_width: MainCtx.dp(56, scale)
+    //the toggle of the redesign: a rounded box holding a square handle and an
+    //ON/OFF caption of its own, the two swapping sides
+    readonly property int checkButton_width: MainCtx.dp(68, scale)
     readonly property int checkButton_height: MainCtx.dp(32, scale)
 
-    readonly property int checkButton_margins: MainCtx.dp(4, scale)
-    readonly property int checkButton_handle_margins: MainCtx.dp(2, scale)
+    readonly property int checkButton_margins: MainCtx.dp(3, scale)
+    readonly property int checkButton_radius: MainCtx.dp(6, scale)
+
+    readonly property int checkButton_handle_size: MainCtx.dp(26, scale)
+    readonly property int checkButton_handle_radius: MainCtx.dp(3, scale)
+
+    readonly property int checkButton_caption_width: MainCtx.dp(33, scale)
 
     readonly property int navBoxButton_radius: MainCtx.dp(8, scale)
 

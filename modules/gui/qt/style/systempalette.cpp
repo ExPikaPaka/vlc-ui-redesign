@@ -513,6 +513,7 @@ void SystemPalette::makeLightPalette()
         setColor(CS, C::Decoration, C::Border, C::Disabled, setColorAlpha(lightDividerBright, 0.0) );
 
         setColor(CS, C::Decoration, C::Separator, C::Normal, lightDividerDim);
+        setColor(CS, C::Decoration, C::Indicator, C::Normal, lightFgA3);
 
         setColor(CS, C::Decoration, C::Shadow, C::Normal, setColorAlpha(Qt::black, 0.22));
 
@@ -732,6 +733,7 @@ void SystemPalette::makeDarkPalette()
         setColor(CS, C::Decoration, C::Shadow, C::Normal, setColorAlpha(Qt::black, 0.46));
 
         setColor(CS, C::Decoration, C::Separator, C::Normal, darkDividerDim);
+        setColor(CS, C::Decoration, C::Indicator, C::Normal, darkFgA3);
 
         setColor(CS, C::Decoration, C::Accent, C::Normal, darkAccentMain);
         setColor(CS, C::Fg, C::Link, C::Normal, darkAccentMain);

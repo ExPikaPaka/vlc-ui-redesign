@@ -32,15 +32,19 @@ T.Switch {
 
     property int animationDuration: VLCStyle.duration_long
 
-    property color color: (checked) ? theme.bg.secondary
-                                    : theme.bg.primary
+    // The box keeps its colour in both states. What changes is the caption
+    // block sitting beside the handle: tinted with the accent and reading ON,
+    // or dim and reading OFF.
+    property color color: theme.bg.primary
 
     property color colorHandle: (checked) ? theme.fg.secondary
                                           : theme.fg.primary
 
-
-    property color colorBorder:  (checked) ? "transparent"
+    property color colorCaption: (checked) ? theme.bg.secondary
                                            : theme.border
+
+    property color colorCaptionText: (checked) ? theme.accent
+                                               : theme.indicator
 
     // Private
 
@@ -76,7 +80,7 @@ T.Switch {
         if (checked)
             handle.x = handle.drag.maximumX
         else
-            handle.x = 0
+            handle.x = handle.drag.minimumX
     }
 
     onCheckedChanged: {
@@ -89,7 +93,7 @@ T.Switch {
         if (checked)
             to = handle.drag.maximumX
         else
-            to = 0
+            to = handle.drag.minimumX
 
         _animate(from, to)
     }
@@ -105,7 +109,7 @@ T.Switch {
         _update = false
 
         if (x < width / 2) {
-            to = 0
+            to = handle.drag.minimumX
 
             checked = false
         } else {
@@ -163,27 +167,58 @@ T.Switch {
     indicator: Rectangle {
         anchors.fill: parent
 
-        anchors.margins: VLCStyle.checkButton_margins
-
-        radius: height / 2
+        radius: VLCStyle.checkButton_radius
 
         color: root.color
 
-        border.color: root.colorBorder
-        border.width: VLCStyle.border
-        border.pixelAligned: (radius < Number.EPSILON)
+        Rectangle {
+            id: caption
+
+            width: VLCStyle.checkButton_caption_width
+            height: VLCStyle.checkButton_handle_size
+
+            // the caption takes the side the handle has left
+            x: (root.checked) ? VLCStyle.checkButton_margins
+                              : root.width - VLCStyle.checkButton_margins - width
+
+            anchors.verticalCenter: parent.verticalCenter
+
+            radius: VLCStyle.checkButton_handle_radius
+
+            color: root.colorCaption
+
+            Behavior on x {
+                NumberAnimation {
+                    duration: VLCStyle.duration_short
+
+                    easing.type: Easing.OutQuad
+                }
+            }
+
+            T.Label {
+                anchors.centerIn: parent
+
+                text: (root.checked) ? qsTr("ON") : qsTr("OFF")
+
+                color: root.colorCaptionText
+
+                font.pixelSize: VLCStyle.fontSize_small
+            }
+        }
 
         MouseArea {
             id: handle
 
-            width: Math.round(root.height - VLCStyle.checkButton_margins * 2)
-            height: width
+            width : VLCStyle.checkButton_handle_size
+            height: VLCStyle.checkButton_handle_size
+
+            anchors.verticalCenter: parent.verticalCenter
 
             drag.target: handle
             drag.axis  : Drag.XAxis
 
-            drag.minimumX: 0
-            drag.maximumX: parent.width - width
+            drag.minimumX: VLCStyle.checkButton_margins
+            drag.maximumX: parent.width - VLCStyle.checkButton_margins - width
 
             onClicked: root.toggle()
 
@@ -193,9 +228,7 @@ T.Switch {
             Rectangle {
                 anchors.fill: parent
 
-                anchors.margins: VLCStyle.checkButton_handle_margins
-
-                radius: height / 2
+                radius: VLCStyle.checkButton_handle_radius
 
                 color: root.colorHandle
             }
