@@ -26,12 +26,14 @@ QtObject {
 
     readonly property real scale: MainCtx.intfScaleFactor
 
-    readonly property FontMetrics fontMetrics_xxsmall  : FontMetrics { font.pixelSize: MainCtx.dp(6, scale);  }
-    readonly property FontMetrics fontMetrics_xsmall   : FontMetrics { font.pixelSize: MainCtx.dp(8, scale);  }
-    readonly property FontMetrics fontMetrics_small    : FontMetrics { font.pixelSize: MainCtx.dp(10, scale); }
-    readonly property FontMetrics fontMetrics_normal   : FontMetrics { font.pixelSize: MainCtx.dp(12, scale); }
-    readonly property FontMetrics fontMetrics_large    : FontMetrics { font.pixelSize: MainCtx.dp(14, scale); }
-    readonly property FontMetrics fontMetrics_xlarge   : FontMetrics { font.pixelSize: MainCtx.dp(16, scale); }
+    // The redesign reads text at 12, 14 and 16 points, so the ramp is shifted
+    // up by two: a row label is "normal", a section heading is "large".
+    readonly property FontMetrics fontMetrics_xxsmall  : FontMetrics { font.pixelSize: MainCtx.dp(8, scale);  }
+    readonly property FontMetrics fontMetrics_xsmall   : FontMetrics { font.pixelSize: MainCtx.dp(10, scale); }
+    readonly property FontMetrics fontMetrics_small    : FontMetrics { font.pixelSize: MainCtx.dp(12, scale); }
+    readonly property FontMetrics fontMetrics_normal   : FontMetrics { font.pixelSize: MainCtx.dp(14, scale); }
+    readonly property FontMetrics fontMetrics_large    : FontMetrics { font.pixelSize: MainCtx.dp(16, scale); }
+    readonly property FontMetrics fontMetrics_xlarge   : FontMetrics { font.pixelSize: MainCtx.dp(18, scale); }
     readonly property FontMetrics fontMetrics_xxlarge  : FontMetrics { font.pixelSize: MainCtx.dp(20, scale); }
     readonly property FontMetrics fontMetrics_xxxlarge : FontMetrics { font.pixelSize: MainCtx.dp(24, scale); }
 
@@ -148,8 +150,8 @@ QtObject {
     readonly property int defaultWidthPlaylist: MainCtx.dp(300, scale);
     readonly property int closedWidthPlaylist: MainCtx.dp(20, scale);
 
-    readonly property int expandNavigationPaneWidth: MainCtx.dp(160, scale);
-    readonly property int buttonHeightNavigationPane: MainCtx.dp(35, scale);
+    readonly property int expandNavigationPaneWidth: MainCtx.dp(188, scale);
+    readonly property int buttonHeightNavigationPane: MainCtx.dp(40, scale);
 
     readonly property int widthSearchInput: MainCtx.dp(200, scale);
     readonly property int widthSortBox: MainCtx.dp(150, scale);
@@ -324,7 +326,7 @@ QtObject {
     readonly property int controlBarBookmarksHeight: icon_xsmall * 0.9
 
     // Player control layout
-    readonly property int controlLayoutHeight: MainCtx.dp(64, scale)
+    readonly property int controlLayoutHeight: MainCtx.dp(54, scale)
     readonly property int controlLayoutHeightPinned: MainCtx.dp(32, scale)
 
     // Scroll bar (size means width or height, depending on the orientation):
