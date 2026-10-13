@@ -584,11 +584,10 @@ void SystemPalette::makeLightPalette()
         setColor(CS, C::Bg, C::Primary, C::Focused, lightBgA3);
         setColor(CS, C::Bg, C::Primary, C::Hovered, lightBgA3);
 
-        //a selected row is tinted with the accent rather than greyed out
-        setColor(CS, C::Bg, C::Highlight, C::Normal, lightBgAccentBright);
-        setColor(CS, C::Bg, C::Highlight, C::Focused, lightBgAccentBright);
-        setColor(CS, C::Bg, C::Highlight, C::Hovered, lightBgAccentBright);
-        setColor(CS, C::Fg, C::Highlight, C::Normal, lightAccentDim);
+        setColor(CS, C::Bg, C::Highlight, C::Normal, lightBgA3);
+        setColor(CS, C::Bg, C::Highlight, C::Focused, lightBgA3);
+        setColor(CS, C::Bg, C::Highlight, C::Hovered, lightBgA3);
+        setColor(CS, C::Fg, C::Highlight, C::Normal, lightFgA2);
 
         setColor(CS, C::Fg, C::Primary, C::Normal, lightFgA2);
         setColor(CS, C::Fg, C::Secondary, C::Normal, lightFgA3);
@@ -674,12 +673,12 @@ void SystemPalette::makeLightPalette()
     //Switch
     {
         C::ColorSet CS = C::Switch;
-        setColor(CS, C::Bg, C::Primary, C::Normal, lightBgB1);
-        setColor(CS, C::Fg, C::Primary, C::Normal, lightFgA3);
-        setColor(CS, C::Decoration, C::Border, C::Normal, lightDividerBright);
+        setColor(CS, C::Bg, C::Primary, C::Normal, lightBgB2);
+        setColor(CS, C::Fg, C::Primary, C::Normal, lightBgA5);
+        setColor(CS, C::Decoration, C::Border, C::Normal, lightBgB1);
 
-        setColor(CS, C::Bg, C::Secondary, C::Normal, lightAccentMain);
-        setColor(CS, C::Fg, C::Secondary, C::Normal, Qt::white);
+        setColor(CS, C::Bg, C::Secondary, C::Normal, lightBgAccentBright);
+        setColor(CS, C::Fg, C::Secondary, C::Normal, lightAccentDim);
     }
 
     //SpinBox
@@ -802,11 +801,10 @@ void SystemPalette::makeDarkPalette()
         setColor(CS, C::Bg, C::Primary, C::Focused, darkBgA1);
         setColor(CS, C::Bg, C::Primary, C::Hovered, darkBgA1);
 
-        //a selected row is tinted with the accent rather than greyed out
-        setColor(CS, C::Bg, C::Highlight, C::Normal, darkBgAccentBright);
-        setColor(CS, C::Bg, C::Highlight, C::Focused, darkBgAccentBright);
-        setColor(CS, C::Bg, C::Highlight, C::Hovered, darkBgAccentBright);
-        setColor(CS, C::Fg, C::Highlight, C::Normal, darkAccentMain);
+        setColor(CS, C::Bg, C::Highlight, C::Normal, darkBgA1);
+        setColor(CS, C::Bg, C::Highlight, C::Focused, darkBgA1);
+        setColor(CS, C::Bg, C::Highlight, C::Hovered, darkBgA1);
+        setColor(CS, C::Fg, C::Highlight, C::Normal, darkFg1);
 
         setColor(CS, C::Fg, C::Primary, C::Normal, darkFg1);
         setColor(CS, C::Fg, C::Secondary, C::Normal, darkFgA1);
@@ -893,11 +891,11 @@ void SystemPalette::makeDarkPalette()
     //Switch
     {
         C::ColorSet CS = C::Switch;
-        setColor(CS, C::Bg, C::Primary, C::Normal, darkBgA1);
-        setColor(CS, C::Fg, C::Primary, C::Normal, darkFgA2);
-        setColor(CS, C::Decoration, C::Border, C::Normal, darkDividerBright);
-        setColor(CS, C::Bg, C::Secondary, C::Normal, darkAccentMain);
-        setColor(CS, C::Fg, C::Secondary, C::Normal, darkFgB1);
+        setColor(CS, C::Bg, C::Primary, C::Normal, darkBgB2);
+        setColor(CS, C::Fg, C::Primary, C::Normal, darkFgA4);
+        setColor(CS, C::Decoration, C::Border, C::Normal, darkBgA4);
+        setColor(CS, C::Bg, C::Secondary, C::Normal, darkBgAccentBright);
+        setColor(CS, C::Fg, C::Secondary, C::Normal, darkAccentDim);
     }
 
     //Spinbox
