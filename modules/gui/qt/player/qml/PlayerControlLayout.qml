@@ -67,6 +67,14 @@ FocusScope {
 
     Component.onCompleted: console.assert(identifier >= 0)
 
+    // Whether the seek bar is drawn inside this row, between the two groups,
+    // as the design has it, rather than on a line of its own above.
+    property bool showSeekBar: false
+
+    property real sliderHeight: VLCStyle.heightBar_xxsmall
+
+    readonly property Item seekSlider: loaderLeftRight.item?.seekRow?.slider ?? null
+
     // Children
 
     Loader {
@@ -85,6 +93,8 @@ FocusScope {
             spacing: playerControlLayout.spacing
 
             focus: true
+
+            property alias seekRow: seekRow
 
             // TODO: Qt >= 5.13 Use QConcatenateTablesProxyModel
             //       instead of multiple repeaters
@@ -134,6 +144,23 @@ FocusScope {
 
                 Layout.fillWidth: true
                 visible: true
+
+                // the space between the two groups is where the design puts
+                // the seek bar, rather than on a line of its own
+                SeekRow {
+                    id: seekRow
+
+                    anchors.fill: parent
+                    anchors.leftMargin: playerControlLayout.layoutSpacing
+                    anchors.rightMargin: playerControlLayout.layoutSpacing
+
+                    visible: playerControlLayout.showSeekBar
+                    enabled: visible
+
+                    sliderHeight: playerControlLayout.sliderHeight
+
+                    Navigation.parentItem: playerControlLayout
+                }
             }
 
             ControlRepeater {
