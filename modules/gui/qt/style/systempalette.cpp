@@ -646,9 +646,9 @@ void SystemPalette::makeLightPalette()
         setColor(CS, C::Bg, C::Primary, C::Hovered, lightDividerDim);
 
         setColor(CS, C::Fg, C::Primary, C::Normal, lightAccentMain);
-        setColor(CS, C::Fg, C::Positive, C::Normal, "#0F7B0F");  //FIXME
-        setColor(CS, C::Fg, C::Neutral, C::Normal, "#9D5D00");  //FIXME
-        setColor(CS, C::Fg, C::Negative, C::Normal, "#C42B1C");  //FIXME
+        setColor(CS, C::Fg, C::Positive, C::Normal, meterLow);
+        setColor(CS, C::Fg, C::Neutral, C::Normal, meterHigh);
+        setColor(CS, C::Fg, C::Negative, C::Normal, meterOver);
     }
 
     //Combo box
@@ -865,9 +865,11 @@ void SystemPalette::makeDarkPalette()
         setColor(CS, C::Bg, C::Primary, C::Hovered, darkFgA3);
 
         setColor(CS, C::Fg, C::Primary, C::Normal, darkAccentMain);
-        setColor(CS, C::Fg, C::Positive, C::Normal, "#0F7B0F");  //FIXME
-        setColor(CS, C::Fg, C::Neutral, C::Normal, "#9D5D00");  //FIXME
-        setColor(CS, C::Fg, C::Negative, C::Normal, "#C42B1C");  //FIXME
+        //the volume wedge of the design reads as a meter: green at the quiet
+        //end, olive at full, red once past it
+        setColor(CS, C::Fg, C::Positive, C::Normal, meterLow);
+        setColor(CS, C::Fg, C::Neutral, C::Normal, meterHigh);
+        setColor(CS, C::Fg, C::Negative, C::Normal, meterOver);
     }
 
     //Combo box
