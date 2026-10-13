@@ -163,6 +163,15 @@ QtObject {
 
     readonly property int expandAlbumTracksHeight: MainCtx.dp(200, scale)
 
+    //text fields, comboboxes and spinboxes share one shape in the design:
+    //36 points high, radius 6, a two point border
+    readonly property int input_height: MainCtx.dp(36, scale)
+    readonly property int input_radius: MainCtx.dp(6, scale)
+
+    //a window button of the client side decoration: a 24 point glyph with
+    //6 points on either side of it
+    readonly property int csdButton_width: MainCtx.dp(36, scale)
+
     //combobox
     readonly property int combobox_width_small: MainCtx.dp(64, scale)
     readonly property int combobox_width_normal: MainCtx.dp(96, scale)
