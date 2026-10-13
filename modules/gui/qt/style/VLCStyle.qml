@@ -163,6 +163,11 @@ QtObject {
 
     readonly property int expandAlbumTracksHeight: MainCtx.dp(200, scale)
 
+    //the play button of the control bar: a rounded box, not a disc
+    readonly property int playButton_width: MainCtx.dp(54, scale)
+    readonly property int playButton_height: MainCtx.dp(28, scale)
+    readonly property int playButton_radius: MainCtx.dp(6, scale)
+
     //text fields, comboboxes and spinboxes share one shape in the design:
     //36 points high, radius 6, a two point border
     readonly property int input_height: MainCtx.dp(36, scale)
